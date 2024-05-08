@@ -1,5 +1,9 @@
+Sure! We can modify the code to allow the user to input a specific time (hours and minutes) for the reminder. Here's the updated code:
+
+```python
 import streamlit as st
 import time
+from datetime import datetime, timedelta
 from plyer import notification
 
 # Function to read reminders from the text file
@@ -16,16 +20,26 @@ def write_reminder(reminder):
     with open("reminders.txt", "a") as file:
         file.write(reminder + "\n")
 
+# Function to convert input time to seconds from the current time
+def calculate_time_to_wait(hours, minutes):
+    now = datetime.now()
+    alarm_time = now.replace(hour=hours, minute=minutes, second=0, microsecond=0)
+    if alarm_time < now:
+        alarm_time += timedelta(days=1)  # If the alarm time is in the past, schedule it for the next day
+    return (alarm_time - now).total_seconds()
+
 def main():
     st.title("Reminder App")
     st.write("Enter your reminder below:")
 
     text = st.text_input("Reminder:")
-    minutes = st.number_input("In how many minutes?", min_value=1)
+    hours = st.number_input("Enter hours (0-23):", min_value=0, max_value=23, value=0)
+    minutes = st.number_input("Enter minutes (0-59):", min_value=0, max_value=59, value=0)
 
     if st.button("Set Reminder"):
         write_reminder(text)
-        time.sleep(minutes * 60)
+        time_to_wait = calculate_time_to_wait(hours, minutes)
+        time.sleep(time_to_wait)
         st.write(text)
         send_notification(text)
         
@@ -48,3 +62,6 @@ def send_notification(reminder):
 
 if __name__ == "__main__":
     main()
+```
+
+With this modification, the user can input the hours and minutes for the reminder. The reminder will occur when the specified time is reached.
