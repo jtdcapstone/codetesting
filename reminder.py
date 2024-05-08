@@ -14,7 +14,7 @@ def main():
         st.write(text)
         send_notification(text)
         
- # Sidebar for listing reminders
+''' # Sidebar for listing reminders
     with st.sidebar:
         st.header("Your Reminders")
         if reminders:
@@ -22,7 +22,7 @@ def main():
                 st.write(f"{idx}. {text} - {dt.strftime('%Y-%m-%d %H:%M')}")
         else:
             st.write("No reminders set yet.")
-
+'''
 def send_notification(reminder):
     notification.notify(
         title="Reminder",
