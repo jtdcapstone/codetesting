@@ -19,16 +19,19 @@ def write_reminder(reminder):
         file.write(reminder + "\n")
 
 # Function to remove expired reminders
+# Function to remove expired reminders
 def remove_expired_reminders():
     now = datetime.now()
     with open("reminders.txt", "r+") as file:
         lines = file.readlines()
+        print("Lines read from file:", lines)
         file.seek(0)
         for line in lines:
-            reminder_time = datetime.strptime(line.split("|")[0], "%Y-%m-%d %H:%M")
+            reminder_time = datetime.strptime(line.split("|")[0].strip(), "%Y-%m-%d %H:%M")
             if reminder_time > now:
                 file.write(line)
         file.truncate()
+
 
 # Function to convert input time to datetime object
 def get_reminder_datetime(date, hours, minutes):
