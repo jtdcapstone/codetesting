@@ -101,3 +101,14 @@ def main():
 if __name__ == "__main__":
     main()
 
+NameError: name 'tester' is not defined
+Traceback:
+
+File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/webpage.py", line 69, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/webpage.py", line 62, in main
+    tester.main()
+    ^^^^^^
+
