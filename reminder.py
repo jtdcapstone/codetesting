@@ -1,27 +1,23 @@
+import streamlit as st
 import time
-import plyer.notification
+from plyer import notification
 
 def main():
-    print("What would you like to be reminded about?")
-    text = str(input())
-    
-    print("In how many minutes?")
-    minutes = float(input())
-    
-    # Convert minutes to seconds
-    seconds = minutes * 60
-    
-    # Wait for the specified duration
-    time.sleep(seconds)
-    
-    print(text)
-    send_notification(text)
+    st.title("Reminder App")
+    st.write("Enter your reminder below:")
 
-# Function to send notification
-def send_notification(text):
-    plyer.notification.notify(
+    text = st.text_input("Reminder:")
+    minutes = st.number_input("In how many minutes?", min_value=1)
+
+    if st.button("Set Reminder"):
+        time.sleep(minutes * 60)
+        st.write(text)
+        send_notification(text)
+
+def send_notification(reminder):
+    notification.notify(
         title="Reminder",
-        message=text,
+        message=reminder,
         timeout=10  # Notification timeout in seconds
     )
 
