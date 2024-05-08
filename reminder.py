@@ -1,11 +1,3 @@
-To ensure that the user is notified of old reminders even after leaving and returning to the program, we need to make a few modifications:
-
-1. We need to check for expired reminders whenever the application starts. This ensures that reminders that have passed while the user was away are still processed.
-2. We should move the reminder processing logic to a separate function that can be called both when the user sets a new reminder and when the application starts.
-
-Let's implement these changes:
-
-```python
 import streamlit as st
 import time
 from datetime import datetime, timedelta
@@ -86,9 +78,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-In this updated code:
-- I've added a `process_reminders()` function that processes all reminders whenever the application starts.
-- The `process_reminders()` function checks if any reminders are due and notifies the user accordingly.
-- The `main()` function now calls `process_reminders()` to ensure that old reminders are processed even if the user leaves and returns to the application.
