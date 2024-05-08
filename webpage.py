@@ -66,3 +66,38 @@ if authenticate_user():
 	else:
 		time.sleep(10)
 		st.write("Choose an application! :brain:")
+
+# example.py
+
+import streamlit as st
+import tester
+import reminder
+import note
+
+st.set_page_config(page_title="brAIn buddy", page_icon=":brain:", layout="wide") 
+
+def authenticate_user():
+    # Authentication logic here
+    # Return True if authenticated, False otherwise
+    pass
+
+def main():
+    st.subheader("brAIn buddy :brain:")
+
+    if authenticate_user():
+        st.write("Welcome!")
+
+        # Sidebar navigation
+        selected_app = st.sidebar.radio("Select an application:", ["Chatbot", "Reminder", "Notepad"])
+
+        # Display the selected application
+        if selected_app == "Chatbot":
+            tester.main()
+        elif selected_app == "Reminder":
+            reminder.main()
+        elif selected_app == "Notepad":
+            note.main()
+
+if __name__ == "__main__":
+    main()
+
