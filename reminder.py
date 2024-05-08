@@ -44,7 +44,20 @@ def main():
     hours = st.number_input("Enter hours (0-23):", min_value=0, max_value=23, value=0)
     minutes = st.number_input("Enter minutes (0-59):", min_value=0, max_value=59, value=0)
 
-    if st.button("Set Reminder"):
+    if st.button("Set Reminder"):File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 77, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 53, in main
+    remove_expired_reminders()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 27, in remove_expired_reminders
+    reminder_time = datetime.strptime(line.split("|")[0], "%Y-%m-%d %H:%M")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
         reminder_datetime = get_reminder_datetime(reminder_date, hours, minutes)
         write_reminder(f"{reminder_datetime.strftime('%Y-%m-%d %H:%M')} | {text}")
         st.write(text)
@@ -75,3 +88,18 @@ def send_notification(reminder, reminder_datetime):
 
 if __name__ == "__main__":
     main()
+
+File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 77, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 53, in main
+    remove_expired_reminders()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 27, in remove_expired_reminders
+    reminder_time = datetime.strptime(line.split("|")[0], "%Y-%m-%d %H:%M")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
