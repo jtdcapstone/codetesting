@@ -76,3 +76,18 @@ def send_notification(reminder, reminder_datetime):
 
 if __name__ == "__main__":
     main()
+
+File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 78, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 54, in main
+    remove_expired_reminders()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 28, in remove_expired_reminders
+    reminder_time = datetime.strptime(line.split("|")[0], "%Y-%m-%d %H:%M")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
