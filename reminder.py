@@ -1,6 +1,3 @@
-Sure! We can modify the code to allow the user to input a specific time (hours and minutes) for the reminder. Here's the updated code:
-
-```python
 import streamlit as st
 import time
 from datetime import datetime, timedelta
@@ -62,6 +59,3 @@ def send_notification(reminder):
 
 if __name__ == "__main__":
     main()
-```
-
-With this modification, the user can input the hours and minutes for the reminder. The reminder will occur when the specified time is reached.
