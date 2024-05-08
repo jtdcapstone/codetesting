@@ -14,17 +14,15 @@ def read_reminders():
 
 
 # Function to write reminders to the text file
-def write_reminder(reminder):
-    with open("reminders.txt", "a") as file:
-        file.write(reminder + "\n")
-
-# Function to remove a reminder from the text file
-def remove_reminder(reminder):
-    reminders = read_reminders()
-    reminders.remove(reminder)
+def write_reminder(reminders):
     with open("reminders.txt", "w") as file:
         for reminder in reminders:
             file.write(reminder + "\n")
+
+# Function to remove a reminder from the text file
+def remove_reminder(reminders, index):
+    del reminders[index]
+    write_reminder(reminders)
 
 # Function to process reminders
 def process_reminders():
@@ -58,7 +56,9 @@ def main():
 
     if st.button("Set Reminder"):
         reminder_datetime = get_reminder_datetime(reminder_date, hours, minutes)
-        write_reminder(f"{reminder_datetime.strftime('%Y-%m-%d %H:%M')} | {text}")
+        reminders = read_reminders()
+        reminders.append(f"{reminder_datetime.strftime('%Y-%m-%d %H:%M')} | {text}")
+        write_reminder(reminders)
         st.write(text)
 
     # Process reminders
@@ -70,9 +70,24 @@ def main():
         reminders = read_reminders()
         if reminders:
             for idx, reminder in enumerate(reminders, start=1):
-                st.write(f"{idx}. {reminder}")
-                if st.button(f"Delete Reminder {idx}"):
-                    remove_reminder(reminder)
+                reminder_date, reminder_text = reminder.split("|")
+                reminder_datetime = datetime.strptime(reminder_date.strip(), "%Y-%m-%d %H:%M")
+                col1, col2, col3 = st.columns([1, 3, 1])
+                with col1:
+                    st.write(f"{idx}.")
+                with col2:
+                    if st.button(f"Edit Reminder {idx}"):
+                        new_date = st.date_input("Edit Date:", value=reminder_datetime.date())
+                        new_hours = st.number_input("Edit Hours (0-23):", min_value=0, max_value=23, value=reminder_datetime.hour)
+                        new_minutes = st.number_input("Edit Minutes (0-59):", min_value=0, max_value=59, value=reminder_datetime.minute)
+                        new_text = st.text_input("Edit Reminder:", value=reminder_text.strip())
+                        if st.button("Save"):
+                            reminders[idx - 1] = f"{get_reminder_datetime(new_date, new_hours, new_minutes).strftime('%Y-%m-%d %H:%M')} | {new_text}"
+                            write_reminder(reminders)
+                            st.success("Reminder updated successfully!")
+                with col3:
+                    if st.button(f"Delete Reminder {idx}"):
+                        remove_reminder(reminders, idx - 1)
         else:
             st.write("No reminders set yet.")
 
