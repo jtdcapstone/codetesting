@@ -13,6 +13,15 @@ def main():
         time.sleep(minutes * 60)
         st.write(text)
         send_notification(text)
+        
+ # Sidebar for listing reminders
+    with st.sidebar:
+        st.header("Your Reminders")
+        if reminders:
+            for idx, (text, dt) in enumerate(reminders, start=1):
+                st.write(f"{idx}. {text} - {dt.strftime('%Y-%m-%d %H:%M')}")
+        else:
+            st.write("No reminders set yet.")
 
 def send_notification(reminder):
     notification.notify(
@@ -20,6 +29,8 @@ def send_notification(reminder):
         message=reminder,
         timeout=10  # Notification timeout in seconds
     )
+    
+    
 
 if __name__ == "__main__":
     main()
