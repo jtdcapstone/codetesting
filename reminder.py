@@ -93,3 +93,21 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+ValueError: time data '2024-05-08 17:10' does not match format '%m/%d/%Y %H:%M'
+Traceback:
+
+File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 94, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 65, in main
+    process_reminders()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 32, in process_reminders
+    reminder_datetime = datetime.strptime(reminder.split("|")[0].strip(), "%m/%d/%Y %H:%M")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/usr/lib64/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
