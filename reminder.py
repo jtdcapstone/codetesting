@@ -32,11 +32,15 @@ def process_reminders():
         if current_datetime < reminder_datetime:
             time_to_wait = (reminder_datetime - current_datetime).total_seconds()
             time.sleep(time_to_wait)
-            notification.notify(
-                title="Reminder",
-                message=reminder.split("|")[1].strip(),
-                timeout=10  # Notification timeout in seconds
-            )
+            notify(reminder.split("|")[1].strip())  # Notify with the reminder message
+
+# Function to display desktop notification
+def notify(message):
+    notification.notify(
+        title="Reminder",
+        message=message,
+        timeout=10  # Notification timeout in seconds
+    )
 
 # Function to convert input time to datetime object
 def get_reminder_datetime(date, hours, minutes):
