@@ -168,3 +168,30 @@ if __name__ == "__main__":
     main()
     process_reminders()  # Only call process_reminders() when script is executed directly
 
+    # Sidebar for listing reminders
+    with st.sidebar:
+        st.header("Your Reminders")
+        reminders = read_reminders()
+        if reminders:
+            for idx, reminder in enumerate(reminders, start=1):
+                reminder_date, reminder_text = reminder.split("|")
+                reminder_datetime = datetime.strptime(reminder_date.strip(), "%Y-%m-%d %H:%M")
+                st.write(f"Reminder {idx}: {reminder_text.strip()} | {reminder_datetime.date()} | {reminder_datetime.time()}")
+                col1, col2, col3 = st.columns([3, 3, 3])
+                with col3:
+                    if st.button(f"Delete {idx}"):
+                        remove_reminder(reminders, idx - 1)
+        else:
+            st.write("No reminders set yet.")
+
+ValueError: not enough values to unpack (expected 2, got 1)
+Traceback:
+
+File "/home/adams/.local/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 600, in _run_script
+    exec(code, module.__dict__)
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 88, in <module>
+    main()
+File "/home/adams/cs403/CAPSTONE/reminder.py", line 77, in main
+    reminder_date, reminder_text = reminder.split("|")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
